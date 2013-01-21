@@ -14,7 +14,7 @@ PD: This is quite an ugly hack, but it makes it very easy to make retina compati
 
 ### How to use
 
-		//enable retina before you create the window, in main.m
+		//enable retina before you create the window, in main.m ///////////////////
 		
 		int main(){
 
@@ -24,7 +24,7 @@ PD: This is quite an ugly hack, but it makes it very easy to make retina compati
 			ofRunApp(new testApp);
 		}
 
-		//include these two files in testApp.h
+		//include these two files in testApp.h ////////////////////////////////////
 		
 		#include "ofxEasyRetina.h"
 		#include "ofxiOSEAGLView+retinaPatch.h"
@@ -38,7 +38,7 @@ PD: This is quite an ugly hack, but it makes it very easy to make retina compati
 				ofxEasyRetina retina; //declare an ofxEasyRetina instance
 		};
 		
-		//Setup the screen before drawing in testApp.mm
+		//Setup the screen before drawing in testApp.mm ///////////////////////////
 		
 		void testApp::draw(){
 			retina.setupScreenOrtho(); //make ofxEasyRetina setup your screen
