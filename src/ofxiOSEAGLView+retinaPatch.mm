@@ -217,8 +217,8 @@
 
 		CGPoint touchPoint = [touch locationInView:self];
 
-		touchPoint.x *= scaleFactor; // this has to be done because retina still returns points in 320x240 but with high percision
-		touchPoint.y *= scaleFactor;
+		touchPoint.x *= 1; // this has to be done because retina still returns points in 320x240 but with high percision
+		touchPoint.y *= 1;
 
 		ofAppiPhoneWindow::getInstance()->rotateXY(touchPoint.x, touchPoint.y);
 
