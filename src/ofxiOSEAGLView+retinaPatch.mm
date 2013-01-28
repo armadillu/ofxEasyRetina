@@ -18,7 +18,7 @@
 @interface ofxiOSEAGLView() {
     BOOL bInit;
 }
-- (void)updateDimensions;
+//- (void)updateDimensions;
 @end
 
 
