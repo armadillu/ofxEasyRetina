@@ -26,7 +26,7 @@
 
 - (void)updateDimensions {
 
-	NSLog(@"updateDimensions: retinaPatch scaleFactor: %d", scaleFactor);
+	//NSLog(@"updateDimensions: retinaPatch scaleFactor: %d", scaleFactor);
 	
 	float pscaleFactor = scaleFactor;
 	scaleFactor = 1; // pretend the screen is no retina
