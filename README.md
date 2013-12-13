@@ -11,6 +11,8 @@ With ofxEasyRetina, everything is upscaled as expected, just with twice the reso
 
 PD: This is quite an ugly hack, but it makes it very easy to make retina compatible an exising non-retina project.
 
+There's also a v008 branch that adds OpenFrameworks v008 compatibility.
+
 
 ### How to use
 
