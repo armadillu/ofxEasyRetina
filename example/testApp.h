@@ -1,14 +1,14 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofxiPhone.h"
-#include "ofxiPhoneExtras.h"
+#include "ofxiOS.h"
+#include "ofxiOSExtras.h"
 
 //include both these files!
 #include "ofxEasyRetina.h"
 #include "ofxiOSEAGLView+retinaPatch.h"
 
-class testApp : public ofxiPhoneApp{
+class testApp : public ofxiOSApp{
 	
     public:
         void setup();

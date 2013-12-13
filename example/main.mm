@@ -3,10 +3,13 @@
 
 int main(){
 
-	ofAppiPhoneWindow * iOSWindow = new ofAppiPhoneWindow();
+	ofAppiOSWindow * iOSWindow = new ofAppiOSWindow();
 
-	iOSWindow->enableRetinaSupport(); //enable retina!
+	iOSWindow->enableHardwareOrientation();
+    iOSWindow->enableOrientationAnimation();
 
-	ofSetupOpenGL(iOSWindow, 480, 320, OF_FULLSCREEN);
+	iOSWindow->enableRetina(); //enable retina!
+
+	ofSetupOpenGL(iOSWindow, 1024, 768, OF_FULLSCREEN);
 	ofRunApp(new testApp);
 }

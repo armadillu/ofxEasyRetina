@@ -15,8 +15,8 @@ class ofxEasyRetina{
 		void setLinearMagnification();	//to get blurry looks when nor using retina
 		float getScaleFactor();
 
-		void setupScreenPerspective(float width = 0, float height = 0, ofOrientation orientation = OF_ORIENTATION_UNKNOWN, bool vFlip = true, float fov = 60, float nearDist = 0, float farDist = 0);
-		void setupScreenOrtho(float width = 0, float height = 0, ofOrientation orientation = OF_ORIENTATION_UNKNOWN, bool vFlip = true, float nearDist = -1, float farDist = 1);
+		void setupScreenPerspective(float width = 0, float height = 0, float fov = 60, float nearDist = 0, float farDist = 0);
+		void setupScreenOrtho(float nearDist = -1, float farDist = 1);
 
 	private:
 

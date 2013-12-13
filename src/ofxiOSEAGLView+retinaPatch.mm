@@ -9,7 +9,6 @@
 #import "ofxiOSEAGLView.h"
 
 #import "ofMain.h"
-#import "ofAppiPhoneWindow.h"
 #import "ofxiPhoneExtras.h"
 #import "ofxiOSEAGLView+retinaPatch.h"
 #import "ofxiOSExtensions.h"
@@ -24,26 +23,7 @@
 
 @implementation ofxiOSEAGLView (retinaPatch)
 
-- (void)updateDimensions {
 
-	//NSLog(@"updateDimensions: retinaPatch scaleFactor: %d", scaleFactor);
-	
-	float pscaleFactor = scaleFactor;
-	scaleFactor = 1; // pretend the screen is no retina
-
-    windowPos->set(self.frame.origin.x * scaleFactor, self.frame.origin.y * scaleFactor, 0);
-    windowSize->set(self.frame.size.width * scaleFactor, self.frame.size.height * scaleFactor, 0);
-
-    UIScreen * currentScreen = self.window.screen;  // current screen is the screen that GLView is attached to.
-    if(!currentScreen) {                            // if GLView is not attached, assume to be main device screen.
-        currentScreen = [UIScreen mainScreen];
-    }
-    screenSize->set(currentScreen.bounds.size.width * scaleFactor, currentScreen.bounds.size.height * scaleFactor, 0);
-
-	scaleFactor = pscaleFactor; // set back to retina scalefactor
-}
-
-//------------------------------------------------------
 
 - (void) drawView {
 
@@ -53,6 +33,13 @@
 
     [self lockGL];
     [self startRender];
+
+	ofGLProgrammableRenderer * es2Renderer = NULL;
+    if(ofIsGLProgrammableRenderer()) {
+        es2Renderer = (ofGLProgrammableRenderer *)(ofGetCurrentRenderer().get());
+        es2Renderer->startRender();
+    }
+
 
     glViewport(0, 0, windowSize->x * scaleFactor, windowSize->y * scaleFactor);
 
@@ -73,26 +60,32 @@
 
     //------------------------------------------
 
+    if(es2Renderer != NULL) {
+        es2Renderer->finishRender();
+    }
+
     [self finishRender];
     [self unlockGL];
 
-    //------------------------------------------
-
-    timeNow = ofGetElapsedTimef();
-    double diff = timeNow-timeThen;
-    if( diff  > 0.00001 ){
-        fps			= 1.0 / diff;
-        frameRate	*= 0.9f;
-        frameRate	+= 0.1f*fps;
-    }
-    lastFrameTime	= diff;
-    timeThen		= timeNow;
-
-    nFrameCount++;
-
-    //------------------------------------------
-
     [super notifyDraw];   // alerts delegate that a new frame has been drawn.
+}
+
+
+- (void)updateDimensions {
+
+	float pscaleFactor = scaleFactor; //store real scaleFactor
+	scaleFactor = 1; // pretend the screen is no retina
+
+    windowPos->set(self.frame.origin.x * scaleFactor, self.frame.origin.y * scaleFactor, 0);
+    windowSize->set(self.frame.size.width * scaleFactor, self.frame.size.height * scaleFactor, 0);
+
+    UIScreen * currentScreen = self.window.screen;  // current screen is the screen that GLView is attached to.
+    if(!currentScreen) {                            // if GLView is not attached, assume to be main device screen.
+        currentScreen = [UIScreen mainScreen];
+    }
+    screenSize->set(currentScreen.bounds.size.width * scaleFactor, currentScreen.bounds.size.height * scaleFactor, 0);
+
+	scaleFactor = pscaleFactor; // set back to retina scalefactor
 }
 
 
@@ -118,8 +111,6 @@
 
 		touchPoint.x *= 1; // this has to be done because retina still returns points in 320x240 but with high percision
 		touchPoint.y *= 1; //uri changed  scaleFactor
-
-		ofAppiPhoneWindow::getInstance()->rotateXY(touchPoint.x, touchPoint.y);
 
 		if( touchIndex==0 ){
 			ofNotifyMousePressed(touchPoint.x, touchPoint.y, 0);
@@ -153,8 +144,6 @@
 		touchPoint.x *= 1; // this has to be done because retina still returns points in 320x240 but with high percision
 		touchPoint.y *= 1;
 
-		ofAppiPhoneWindow::getInstance()->rotateXY(touchPoint.x, touchPoint.y);
-
 		if( touchIndex==0 ){
 			ofNotifyMouseDragged(touchPoint.x, touchPoint.y, 0);
 		}
@@ -187,8 +176,6 @@
 		touchPoint.x *= 1; // this has to be done because retina still returns points in 320x240 but with high percision
 		touchPoint.y *= 1;
 
-		ofAppiPhoneWindow::getInstance()->rotateXY(touchPoint.x, touchPoint.y);
-
 		if( touchIndex==0 ){
 			ofNotifyMouseReleased(touchPoint.x, touchPoint.y, 0);
 		}
@@ -219,8 +206,6 @@
 
 		touchPoint.x *= scaleFactor; // this has to be done because retina still returns points in 320x240 but with high percision
 		touchPoint.y *= scaleFactor;
-
-		ofAppiPhoneWindow::getInstance()->rotateXY(touchPoint.x, touchPoint.y);
 
 		ofTouchEventArgs touchArgs;
 		touchArgs.numTouches = [[event touchesForView:self] count];

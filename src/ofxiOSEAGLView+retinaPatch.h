@@ -14,7 +14,7 @@
 
 @interface ofxiOSEAGLView (retinaPatch)
 
-- (void)updateDimensions ;
+- (void) updateDimensions ;
 - (void) drawView ;
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;
