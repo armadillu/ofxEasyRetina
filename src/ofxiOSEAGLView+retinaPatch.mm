@@ -105,7 +105,7 @@
 			touchIndex++;
 		}
 
-		[activeTouches setObject:[NSNumber numberWithInt:touchIndex] forKey:[NSValue valueWithPointer:touch]];
+		[activeTouches setObject:[NSNumber numberWithInt:touchIndex] forKey:[NSValue valueWithPointer:(void*)touch]];
 
 		CGPoint touchPoint = [touch locationInView:self];
 
@@ -137,7 +137,7 @@
     }
 
 	for(UITouch *touch in touches){
-		int touchIndex = [[activeTouches objectForKey:[NSValue valueWithPointer:touch]] intValue];
+		int touchIndex = [[activeTouches objectForKey:[NSValue valueWithPointer:(void*)touch]] intValue];
 
 		CGPoint touchPoint = [touch locationInView:self];
 
@@ -167,9 +167,9 @@
     }
 
 	for(UITouch *touch in touches){
-		int touchIndex = [[activeTouches objectForKey:[NSValue valueWithPointer:touch]] intValue];
+		int touchIndex = [[activeTouches objectForKey:[NSValue valueWithPointer:(void*)touch]] intValue];
 
-		[activeTouches removeObjectForKey:[NSValue valueWithPointer:touch]];
+		[activeTouches removeObjectForKey:[NSValue valueWithPointer:(void*)touch]];
 
 		CGPoint touchPoint = [touch locationInView:self];
 
@@ -200,7 +200,7 @@
     }
 
 	for(UITouch *touch in touches){
-		int touchIndex = [[activeTouches objectForKey:[NSValue valueWithPointer:touch]] intValue];
+		int touchIndex = [[activeTouches objectForKey:[NSValue valueWithPointer:(void*)touch]] intValue];
 
 		CGPoint touchPoint = [touch locationInView:self];
 
